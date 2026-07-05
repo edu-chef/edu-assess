@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과목별 성취평가 운영결과 분석</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-900:#123f35;
+    --green-800:#154e41;
+    --green-700:#1d5c4d;
+    --green-600:#276b5a;
+    --tab-text:#cfe6dd;
+    --tab-text-dim:#a9cec1;
+    --ink:#16233c;
+    --panel:#eef1f5;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    height:100%;
+    margin:0;
+    font-family:'Noto Sans KR', sans-serif;
+    background:var(--panel);
+  }
+  body{
+    display:flex;
+    flex-direction:column;
+  }
+  h1,h2{font-family:'Noto Serif KR', serif; margin:0;}
+
+  /* ── Header ───────────────────────────── */
+  header.hero{
+    background:var(--green-800);
+    flex-shrink:0;
+  }
+  .hero-inner{
+    max-width:1280px;
+    margin:0 auto;
+    padding:16px 24px 12px 24px;
+  }
+  header.hero h1{
+    font-size:28px;
+    font-weight:800;
+    color:#ffffff;
+    letter-spacing:-0.01em;
+    line-height:1.3;
+    margin:0;
+  }
+
+  /* ── Tabs bar ─────────────────────────── */
+  nav.tabs-bar{
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .tabs{
+    display:flex;
+    min-width:0;
+    gap:10px;
+    overflow-x:auto;
+  }
+  .org-label{
+    font-size:12px;
+    letter-spacing:.08em;
+    color:rgba(255,255,255,.9);
+    font-weight:600;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .tab{
+    position:relative;
+    display:flex;
+    align-items:baseline;
+    justify-content:center;
+    gap:7px;
+    flex:0 0 200px;
+    min-width:0;
+    padding:11px 16px 12px 16px;
+    border:none;
+    border-radius:10px 10px 0 0;
+    background:var(--green-700);
+    color:var(--tab-text);
+    font-size:14.5px;
+    font-weight:700;
+    font-family:inherit;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .15s ease, color .15s ease;
+  }
+  .tab .badge{
+    font-size:11.5px;
+    font-weight:500;
+    color:var(--tab-text-dim);
+  }
+  .tab:hover{
+    background:var(--green-600);
+    color:#ffffff;
+  }
+  .tab:focus-visible{
+    outline:2px solid #ffffff;
+    outline-offset:-2px;
+  }
+  .tab.active{
+    background:var(--panel);
+    color:var(--green-800);
+  }
+  .tab.active .badge{ color:var(--green-700); opacity:.85; }
+  .tab.active:hover{ background:var(--panel); color:var(--green-800); }
+
+  /* ── App area ─────────────────────────── */
+  main{
+    flex:1;
+    position:relative;
+    background:var(--panel);
+  }
+  .frame-wrap{
+    position:absolute;
+    inset:0;
+    display:none;
+  }
+  .frame-wrap.active{
+    display:block;
+  }
+  iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    display:block;
+    background:#ffffff;
+  }
+
+  @media (max-width:640px){
+    .hero-inner{ padding:14px 16px 10px 16px; }
+    header.hero h1{ font-size:17px; }
+    nav.tabs-bar{ padding:0 16px; }
+    .tab{ padding:10px 14px 11px 14px; font-size:13px; }
+    .tab .badge{ display:none; }
+    .org-label{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>과목별 성취평가 운영 결과 — 정기시험 · 수행평가 · 학기말 성적 분석</h1>
+  </div>
+  <nav class="tabs-bar" role="tablist" aria-label="평가 유형 선택">
+    <div class="tabs">
+      <button class="tab active" role="tab" aria-selected="true" aria-controls="frame-5" id="tab-5" data-target="frame-5">
+        5단계 <span class="badge">A·B·C·D·E</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="frame-5a" id="tab-5a" data-target="frame-5a">
+        5단계+미도달 <span class="badge">A·B·C·D·E·미도달</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="frame-3" id="tab-3" data-target="frame-3">
+        3단계 <span class="badge">A·B·C</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="frame-3a" id="tab-3a" data-target="frame-3a">
+        3단계+미도달 <span class="badge">A·B·C·미도달</span>
+      </button>
+    </div>
+    <p class="org-label">안양여고 평가관리부</p>
+  </nav>
+</header>
+
+<main>
+  <div class="frame-wrap active" id="frame-5">
+    <iframe src="eval_5.html" title="5단계 성취평가 운영결과 분석" loading="eager"></iframe>
+  </div>
+  <div class="frame-wrap" id="frame-5a">
+    <iframe src="eval_5a.html" title="5단계+미도달 성취평가 운영결과 분석" loading="eager"></iframe>
+  </div>
+  <div class="frame-wrap" id="frame-3">
+    <iframe src="eval_3.html" title="3단계 성취평가 운영결과 분석" loading="eager"></iframe>
+  </div>
+  <div class="frame-wrap" id="frame-3a">
+    <iframe src="eval_3a.html" title="3단계+미도달 성취평가 운영결과 분석" loading="eager"></iframe>
+  </div>
+</main>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+  function activate(tab){
+    tabs.forEach(function(t){
+      var isActive = t === tab;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      var panel = document.getElementById(t.dataset.target);
+      panel.classList.toggle('active', isActive);
+    });
+    tab.focus();
+  }
+
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ activate(tab); });
+    tab.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+        e.preventDefault();
+        var next = e.key === 'ArrowRight'
+          ? tabs[(i+1) % tabs.length]
+          : tabs[(i-1+tabs.length) % tabs.length];
+        activate(next);
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
